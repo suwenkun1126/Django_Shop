@@ -31,7 +31,7 @@ class Product(models.Model):
     class Meta:
         ordering=('name',)
         index_together=(('id','slug'),)
-    
+
     def get_absolute_url(self):
         return reverse('shop:product_detail',args=[self.id,self.slug])
 
