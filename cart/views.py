@@ -1,3 +1,30 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404,redirect
+from .forms import CartAddProductForm
+from shop.models import Product
+from .cart import Cart
+from django.views.decorators.http import require_POST
 
-# Create your views here.
+def cart_detail(request):
+    cart=Cart(request)
+    return render(request,'cart/detail.html',{'cart':cart})
+    pass
+
+@require_POST
+def cart_add(request,product_id):
+    cart=Cart(request)
+    product=get_object_or_404(Product,product_id)
+    form=CartAddProductForm(request.POST)
+    if form.is_valid():
+        cd=form.changed_data
+        cart.add(product=product,
+                 quantity=cd['quantity'],
+                 update_quantity=cd['updated'])
+    return redirect('cart:cart_detail')
+
+def cart_remove(request,product_id):
+    cart=Cart(request)
+    product=get_object_or_404(Product,product_id)
+    cart.remove(product)
+    return redirect('cart:cart_detail')
+
+
