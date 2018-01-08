@@ -12,7 +12,16 @@
     </div>
     <div id="subheader">
         <div class="cart">
-            您的购物车为空
+            {% with total_items=cart|length %}
+                {% if cart|length > 0 %}
+                    您的购物车:
+                    <a href="{% url 'cart:cart_detail' %}">
+                        物品:{{ total_items }}件,总价:¥{{ cart.get_total_price }}
+                    </a>
+                {% else %}
+                    您的购物车为空
+                {% endif %}
+            {% endwith %}
         </div>
     </div>
     <div id="content">
