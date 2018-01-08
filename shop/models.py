@@ -26,7 +26,7 @@ class Product(models.Model):
     available=models.BooleanField(default=True)
     created=models.DateTimeField(auto_now_add=True)
     updated=models.DateTimeField(auto_now=True)
-    category=models.ForeignKey(Category,related_name='products',on_delete=models.DO_NOTHING)
+    category=models.ForeignKey(Category,related_name='products',on_delete=models.CASCADE)
 
     class Meta:
         ordering=('name',)
