@@ -22,6 +22,7 @@ urlpatterns = [
     url('^admin/', admin.site.urls),
     url('^cart/',include('cart.urls')),
     url('^',include('shop.urls')),
+    url('^orders/',include('orders.urls')),
 ]
 
 if settings.DEBUG:
